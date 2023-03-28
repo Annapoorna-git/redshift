@@ -1,8 +1,8 @@
 -- Create a schema
-CREATE SCHEMA my_schema;
+CREATE SCHEMA sales_table;
 
 -- Create a table
-CREATE TABLE my_schema.my_table (
+CREATE TABLE sales_table.my_table (
    id INT NOT NULL,
    name VARCHAR(50) NOT NULL,
    age INT,
