@@ -24,4 +24,4 @@ jobs:
         sudo apt-get install -y awscli
     - name: Create Redshift schema and tables
       run: |
-        aws redshift-data execute-statement --cluster-identifier redshiftproject --database dev --db-user dev --sql redshift.sql
+        aws redshift-data execute-statement --cluster-identifier redshiftproject --database dev --db-user redshiftproject --sql redshift.sql
