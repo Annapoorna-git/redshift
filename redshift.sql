@@ -1,4 +1,4 @@
-CREATE SCHEMA sales_table;
+CREATE public SCHEMA sales_table;
 
 CREATE TABLE sales_table.my_table (
    id INT NOT NULL,
