@@ -1,9 +1,8 @@
-CREATE public SCHEMA sales_table;
+CREATE SCHEMA sales_table;
 
-CREATE TABLE sales_table.my_table (
-   id INT NOT NULL,
-   name VARCHAR(50) NOT NULL,
-   age INT,
-   gender VARCHAR(10),
-   PRIMARY KEY (id)
-);
+CREATE TABLE sales_table; myusers1 (
+ user_id INT PRIMARY KEY,
+ user_first_name VARCHAR (30),
+  user_last_name VARCHAR (30)
+  )
+  
