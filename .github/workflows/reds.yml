@@ -25,3 +25,4 @@ jobs:
     - name: Create Redshift schema and tables
       run: |
         aws redshift-data execute-statement --cluster-identifier redshift-cluster-1 --database dev --db-user awsuser --sql redshift.sql
+
