@@ -24,4 +24,4 @@ jobs:
         sudo apt-get install -y awscli
     - name: Create Redshift schema and tables
       run: |
-       aws redshift-data execute-statement --cluster-identifier redshift-cluster-1 --database dev --db-user awsuser --sql "CREATE SCHEMA sales_row;"
+       aws redshift-data execute-statement --cluster-identifier redshift-cluster-1 --database dev --db-user awsuser --secret-arn arn:aws:iam::896162421305:role/redpro --sql "CREATE SCHEMA sales_raw;" --sql "CREATE TABLE sales_raw.red( vendorid  VARCHAR(4),trip_type VARCHAR(4));"
