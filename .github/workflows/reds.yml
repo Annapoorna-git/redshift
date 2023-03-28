@@ -1,34 +1,27 @@
-name: Redshift schema and table creation
+name: Create Redshift schema and tables
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [ main ]
 env:
-  REDSHIFT_ENDPOINT: redshift-cluster-1.ceasvzfizbth.ap-south-1.redshift.amazonaws.com:5439/dev
-  REDSHIFT_DATABASE: dev
+ AWS_ACCESS_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+ AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ AWS_REGION: ${{ secrets.AWS_REGION }}
+
 jobs:
-  build:
+  create_redshift_schema_and_tables:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+       aws-access-key-id: ${{ env.AWS_ACCESS_ID }}
+       aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+       aws-region: ${{ env.AWS_REGION }}
     - name: Install AWS CLI
       run: |
         sudo apt-get update
         sudo apt-get install -y awscli
-
-    - name: Create schema and tables
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: <your-aws-region>
-        REDSHIFT_ENDPOINT: ${{ env.REDSHIFT_ENDPOINT }}
-        REDSHIFT_DATABASE: ${{ env.REDSHIFT_DATABASE }}
-        
+    - name: Create Redshift schema and tables
       run: |
-        aws redshift create-schema --cluster-identifier $REDSHIFT_ENDPOINT --database-name $REDSHIFT_DATABASE --schema-name elan
-        aws redshift create-table --cluster-identifier $REDSHIFT_ENDPOINT --database-name $REDSHIFT_DATABASE --table-name e --column-name d --column-type c --column-name b --column-type a
+        aws redshift-data execute-statement --cluster-identifier redshift-cluster-1 --database dev --db-user awsuser --sql redshift.sql
